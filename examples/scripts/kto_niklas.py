@@ -124,11 +124,11 @@ def get_hh(split: str, sanity_check: bool = False, silent: bool = False, cache_d
     }
     for sample in dataset:
         prompt = extract_anthropic_prompt(sample["chosen"])
-        #flat_data["prompt"].append(prompt)
+        # flat_data["prompt"].append(prompt)
         flat_data["prompt"].append(f"<|user|>\n{prompt}\n<|assistant|>\n")
         flat_data["completion"].append(sample["chosen"][len(prompt) :])
         flat_data["label"].append(True)
-        #flat_data["prompt"].append(prompt)
+        # flat_data["prompt"].append(prompt)
         flat_data["prompt"].append(f"<|user|>\n{prompt}\n<|assistant|>\n")
         flat_data["completion"].append(sample["rejected"][len(prompt) :])
         flat_data["label"].append(False)
@@ -140,7 +140,7 @@ def get_ultrabin(split: str, sanity_check: bool = False, silent: bool = False, c
     dataset = load_dataset("HuggingFaceH4/ultrafeedback_binarized", split=split, cache_dir=cache_dir)
     if sanity_check:
         dataset = dataset.select(range(min(len(dataset), 1000)))
-    
+
     flat_data = {
         "prompt": [],
         "completion": [],
@@ -148,14 +148,14 @@ def get_ultrabin(split: str, sanity_check: bool = False, silent: bool = False, c
     }
     for sample in dataset:
         prompt = sample["prompt"]
-        #flat_data["prompt"].append(sample["prompt"])
+        # flat_data["prompt"].append(sample["prompt"])
         flat_data["prompt"].append(f"<|user|>\n{prompt}\n<|assistant|>\n")
-        #flat_data["completion"].append(sample["chosen"][1]["content"])
+        # flat_data["completion"].append(sample["chosen"][1]["content"])
         flat_data["completion"].append(sample["chosen"][1]["content"] + "</s>")
         flat_data["label"].append(True)
-        #flat_data["prompt"].append(sample["prompt"])
+        # flat_data["prompt"].append(sample["prompt"])
         flat_data["prompt"].append(f"<|user|>\n{prompt}\n<|assistant|>\n")
-        #flat_data["completion"].append(sample["rejected"][1]["content"])
+        # flat_data["completion"].append(sample["rejected"][1]["content"])
         flat_data["completion"].append(sample["rejected"][1]["content"] + "</s>")
         flat_data["label"].append(False)
 
@@ -175,11 +175,11 @@ if __name__ == "__main__":
         tokenizer.pad_token = tokenizer.eos_token
 
     # 2. Load the Anthropic Helpful-Harmless dataset
-    #train_dataset = get_hh("train", sanity_check=script_args.sanity_check)
+    # train_dataset = get_hh("train", sanity_check=script_args.sanity_check)
     train_dataset = get_ultrabin("train_prefs", sanity_check=script_args.sanity_check)
 
     # 3. Load evaluation dataset
-    #eval_dataset = get_hh("test", sanity_check=script_args.sanity_check)
+    # eval_dataset = get_hh("test", sanity_check=script_args.sanity_check)
     eval_dataset = get_ultrabin("test_prefs", sanity_check=script_args.sanity_check)
 
     # 4. initialize the KTO trainer

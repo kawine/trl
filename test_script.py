@@ -1,9 +1,11 @@
-from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoTokenizer
-from trl import KTOConfig, KTOTrainer
 from datasets import Dataset
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-ref_model = AutoModelForCausalLM.from_pretrained('gpt2')
-model = AutoModelForCausalLM.from_pretrained('gpt2')
+from trl import KTOConfig, KTOTrainer
+
+
+ref_model = AutoModelForCausalLM.from_pretrained("gpt2")
+model = AutoModelForCausalLM.from_pretrained("gpt2")
 tokenizer = AutoTokenizer.from_pretrained("huggyllama/llama-7b")
 
 dummy_dataset_dict = {
@@ -39,7 +41,7 @@ dummy_dataset_dict = {
 dummy_dataset = Dataset.from_dict(dummy_dataset_dict)
 
 training_args = KTOConfig(
-    output_dir='./test',
+    output_dir="./test",
     per_device_train_batch_size=2,
     max_steps=3,
     remove_unused_columns=False,
@@ -57,4 +59,4 @@ trainer = KTOTrainer(
     train_dataset=dummy_dataset,
 )
 
-trainer.tokenize_row({"prompt": 'How are you', "completion": 'leave me alone', "label": True})
+trainer.tokenize_row({"prompt": "How are you", "completion": "leave me alone", "label": True})

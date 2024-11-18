@@ -1,5 +1,11 @@
 # Judges
 
+<Tip warning={true}>
+
+TRL Judges is an experimental API which is subject to change at any time.
+
+</Tip>
+
 TRL provides judges to easily compare two completions.
 
 Make sure to have installed the required dependencies by running:
@@ -46,9 +52,17 @@ judge.judge(
 )  # Outputs: [0, 1]
 ```
 
+## AllTrueJudge
+
+[[autodoc]] AllTrueJudge
+
 ## BaseJudge
 
 [[autodoc]] BaseJudge
+
+## BaseBinaryJudge
+
+[[autodoc]] BaseBinaryJudge
 
 ## BaseRankJudge
 
@@ -57,6 +71,10 @@ judge.judge(
 ## BasePairwiseJudge
 
 [[autodoc]] BasePairwiseJudge
+
+## RandomBinaryJudge
+
+[[autodoc]] RandomBinaryJudge
 
 ## RandomRankJudge
 
